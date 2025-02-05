@@ -66,3 +66,5 @@ async function hashPassword(password) {
 const password = process.env.LOGIN; // Replace this with the user's password
 const hashedPassword = await hashPassword(password);
 console.log(hashedPassword);
+
+// Export the hashed password
