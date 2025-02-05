@@ -30,7 +30,7 @@ app.post("/api/login", async (req, res) => {
     const [rows] = await pool.query("SELECT * FROM users WHERE username = ?", [username]);
 
     if (rows.length === 0) {
-      return res.status(401).json({ error: "Invalid username or password" });
+      return res.status(401).json({ error: "Empty" });
     }
 
     const user = rows[0];
@@ -56,3 +56,13 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+async function hashPassword(password) {
+  const saltRounds = 10; // Number of salt rounds
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  return hashedPassword;
+}
+
+const password = process.env.LOGIN; // Replace this with the user's password
+const hashedPassword = await hashPassword(password);
+console.log(hashedPassword);

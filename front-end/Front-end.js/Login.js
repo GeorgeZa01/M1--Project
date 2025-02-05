@@ -21,7 +21,7 @@ async function validateLogin(event) {
         icon: "success"
       });
 
-      // 🔹 Redirect based on user role
+      // Redirect based on user role
       redirectUser(data.role);
     } else {
       modal.style.display = "block";
@@ -33,7 +33,7 @@ async function validateLogin(event) {
   }
 }
 
-// ✅ Function to handle redirection
+// Redirect the user based on role
 function redirectUser(role) {
   if (role === "employee") {
     window.location.href = "./Html/Timeoff.html";
@@ -41,7 +41,6 @@ function redirectUser(role) {
     window.location.href = "./Html/attendance_leave.html";
   }
 }
-
 
 function dismissModal() {
   document.querySelector(".modal").style.display = "none";
