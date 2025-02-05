@@ -24,26 +24,26 @@ app.post("/api/login", async (req, res) => {
   try {
     const { username, password } = req.body;
     if (!username || !password) {
-      return res.status(400).json({ error: "Username and password required" });
+      return res.status(400).json({ error: "Username and password required" }); //No input
     }
 
     const [rows] = await pool.query("SELECT * FROM users WHERE username = ?", [username]);
 
     if (rows.length === 0) {
-      return res.status(401).json({ error: "Empty" });
+      return res.status(401).json({ error: "Empty" }); //No user
     }
 
     const user = rows[0];
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res.status(401).json({ error: "Invalid username or password" });
+      return res.status(401).json({ error: "Invalid username or password" });//Wrong password or username
     }
 
-    res.json({ message: "Login successful", role: user.role });
+    res.json({ message: "Login successful", role: user.role });//Login successful
   } catch (error) {
     console.error("Database error:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal Server Error" }); //Database error
   }
 });
 
