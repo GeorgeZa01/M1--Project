@@ -33,7 +33,7 @@ app.get("/api/attendance", async (req, res) => {
       SELECT e.name, a.attendance_date, a.status, e.employee_id
       FROM Attendance a
       JOIN Employees e ON a.employee_id = e.employee_id
-      ORDER BY e.employee_id, a.attendance_date DESC
+      ORDER BY e.employee_id, a.attendance_date ASC
     `);
 
     const transformedData = [];
