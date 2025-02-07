@@ -7,6 +7,9 @@ config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(cors({
+  origin: "http://localhost:3000", // Allow frontend to access API
+}));
 
 const pool = mysql.createPool({
   host: process.env.HOST || "localhost",
@@ -16,7 +19,7 @@ const pool = mysql.createPool({
 });
 
 // Get employee names and IDs
-app.get("/api/employees", async (req, res) => {
+app.get("/api/employees/names", async (req, res) => {
   try {
     const [employees] = await pool.query("SELECT employee_id, name FROM Employees");
     res.json({ employees });
@@ -89,6 +92,38 @@ app.post("/api/attendance", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+//get all employees
+app.get("/api/employees", async (req, res) => {
+  console.log("Fetching employees...");
+  try {
+    const [employees] = await pool.query("SELECT employee_id, name FROM employees");
+    console.log("Employees fetched:", employees);
+    res.json(employees);
+  } catch (error) {
+    console.error("Database error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
+
+// POST route to handle the time off request submission
+app.post("/api/timeoff", async (req, res) => {
+  try {
+      const { employee_id, beginning_date, ending_date, reason, status } = req.body;
+      const [rows] = await pool.query(
+          "INSERT INTO leave_request (employee_id, beginning_date, ending_date, reason, status) VALUES (?, ?, ?, ?, ?)",
+          [employee_id, beginning_date, ending_date, reason, status]
+      );
+      res.status(201).json({ message: "Time off request submitted successfully", rows });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "An error occurred while submitting the request" });
+  }
+});
+
+
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
