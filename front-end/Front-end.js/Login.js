@@ -19,15 +19,20 @@ async function validateLogin(event) {
     const data = await response.json();
 
     if (response.ok) {
-      // Successful login
+      // Determine the redirect URL based on user role
+      const redirectUrl = data.role.toLowerCase() === 'hr' 
+        ? '../front-end/Html/attendance_leave.html' 
+        : '../front-end/Html/Timeoff.html';
+
+      // Successful login alert
       Swal.fire({
         title: 'Login Successful!',
         text: `Welcome, ${data.role}`,
         icon: 'success',
         confirmButtonText: 'OK',
       }).then(() => {
-        // Redirect to a dashboard or home page after login
-        window.location.href = '/dashboard'; // Replace with the desired URL
+        // Redirect to the appropriate page
+        window.location.href = redirectUrl;
       });
     } else {
       // If login fails, show error modal
