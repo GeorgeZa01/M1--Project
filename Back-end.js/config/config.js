@@ -1,7 +1,6 @@
 import mysql from 'mysql2/promise';
 import { config } from 'dotenv';
 
-
 config();
 const pool = mysql.createPool({
     host: process.env.HOST || "localhost",
@@ -10,4 +9,4 @@ const pool = mysql.createPool({
     database: process.env.DATABASE || "modern_tech_solutions",
 });
 
-export {pool};
+export { pool };
