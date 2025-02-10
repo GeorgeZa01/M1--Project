@@ -1,4 +1,4 @@
-import {createRequest,getRequests} from "../models/timeOffModel.js"
+import {createRequest,getRequests} from "../model/timeoffModel.js"
 
 
 const submitRequestCon = async (req, res) => {

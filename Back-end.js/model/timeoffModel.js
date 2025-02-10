@@ -1,7 +1,7 @@
-import {pool} from "../config/config.js"
+import {pool} from '../config/configTime.js'; // Make sure to import your db connection here
 
-class TimeOffRequest {
-    static async createRequest(data) {
+// Function to create a time off request
+const createRequest = async (data) => {
     const { todaysDate, employeeName, startDate, endDate, reasons, otherReason } = data;
     const query = `
         INSERT INTO time_off_requests (todays_date, employee_name, start_date, end_date, reasons, other_reason)
@@ -14,9 +14,10 @@ class TimeOffRequest {
     } catch (error) {
         throw error;
     }
-    }
+};
 
-    static async getRequests() {
+// Function to get all time off requests
+const getRequests = async () => {
     const query = "SELECT * FROM time_off_requests";
     try {
         const [rows] = await db.execute(query);
@@ -24,7 +25,7 @@ class TimeOffRequest {
     } catch (error) {
         throw error;
     }
-    }
-}
+};
 
-export { TimeOffRequest };
+// Exporting the functions directly
+export { createRequest, getRequests };
