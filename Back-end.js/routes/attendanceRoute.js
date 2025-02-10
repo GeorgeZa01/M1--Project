@@ -4,9 +4,10 @@ import { fetchAttendance, createAttendance } from "../controllers/attendanceCont
 
 const router = express.Router();
 
-router.get("/names", fetchEmployees);
-router.get("/", fetchEmployees);
-router.get("/", fetchAttendance);
+
+router.get("/employees", fetchEmployees); // Keep this for employees
+router.get("/", fetchAttendance); // Keep this for attendance
 router.post("/", createAttendance);
+
 
 export default router;

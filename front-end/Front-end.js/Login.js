@@ -8,7 +8,7 @@ async function validateLogin(event) {
 
   try {
     // Send login request to the backend API
-    const response = await fetch('http://localhost:3000/api/login', {
+    const response = await fetch('http://localhost:3030/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

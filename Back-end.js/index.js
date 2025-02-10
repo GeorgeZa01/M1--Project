@@ -10,16 +10,19 @@ const app = express();
 app.use(cors()); // Allows frontend to communicate with backend
 app.use(express.json());
 
+
 // Middleware
 app.use('/api/login', login_route);
+app.use("/api/attendanceRoute", attendanceRoute);
+app.use("/api/employees", attendanceRoute);
 
-app.use("/api/attendance_leave", attendance_leave_route)
 
 // Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 3030;
+
+app.listen (PORT, () => {
+  console.log(`localhost://${PORT}`)
+})
 
 // Hash the user's password (if creating a new user)
 async function hashPassword(password) {

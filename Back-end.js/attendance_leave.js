@@ -1,6 +1,3 @@
-
-
-
 // Get employee names and IDs
 app.get("/api/employees/names", async (req, res) => {
   try {
@@ -57,16 +54,16 @@ app.get("/api/attendance", async (req, res) => {
 
 // Add attendance entry
 app.post("/api/attendance", async (req, res) => {
-  const { employeeId, attendanceDate, status } = req.body;
+  const { employee_id, attendanceDate, status } = req.body;
 
-  if (!employeeId || !attendanceDate || !status) {
+  if (!employee_id || !attendanceDate || !status) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
   try {
     const result = await pool.query(
       `INSERT INTO Attendance (employee_id, attendance_date, status) VALUES (?, ?, ?)`,
-      [employeeId, attendanceDate, status]
+      [employee_id, attendanceDate, status]
     );
 
     res.status(201).json({ message: "Attendance record added successfully", result });
@@ -108,6 +105,4 @@ app.post("/api/timeoff", async (req, res) => {
 
 
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
-});
+

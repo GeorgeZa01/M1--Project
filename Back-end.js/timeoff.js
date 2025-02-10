@@ -33,7 +33,3 @@ app.post("/api/timeoff", async (req, res) => {
     }
 });
 
-// Start the server
-app.listen(3000, () => {
-    console.log("localhost://3000");
-});

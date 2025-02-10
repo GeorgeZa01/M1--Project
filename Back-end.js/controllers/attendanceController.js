@@ -2,7 +2,6 @@ import { getAllEmployees } from "../models/attendanceModel.js";
 import { getAttendanceData, addAttendance } from "../models/attendanceModel.js";
 import { addLeaveRequest } from "../models/attendanceModel.js";
 
-//
 export const fetchEmployees = async (req, res) => {
   try {
     const employees = await getAllEmployees();
@@ -42,14 +41,14 @@ export const fetchAttendance = async (req, res) => {
 };
 
 export const createAttendance = async (req, res) => {
-  const { employeeId, attendanceDate, status } = req.body;
+  const { employee_id, attendanceDate, status } = req.body;
 
-  if (!employeeId || !attendanceDate || !status) {
+  if (!employee_id || !attendanceDate || !status) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
   try {
-    await addAttendance(employeeId, attendanceDate, status);
+    await addAttendance(employee_id, attendanceDate, status);
     res.status(201).json({ message: "Attendance record added successfully" });
   } catch (error) {
     console.error(error);
@@ -67,3 +66,4 @@ export const requestTimeOff = async (req, res) => {
       res.status(500).json({ error: "An error occurred while submitting the request" });
     }
   };
+

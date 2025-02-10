@@ -1,5 +1,5 @@
-import pool from "../config/config.js";
-import 
+import { pool } from "../config/config.js";
+
 export const getAllEmployees = async () => {
   const [employees] = await pool.query("SELECT employee_id, name FROM Employees");
   return employees;
@@ -15,10 +15,10 @@ export const getAttendanceData = async () => {
     return attendanceData;
   };
   
-  export const addAttendance = async (employeeId, attendanceDate, status) => {
+  export const addAttendance = async (name, attendanceDate, status) => {
     const result = await pool.query(
       "INSERT INTO Attendance (employee_id, attendance_date, status) VALUES (?, ?, ?)",
-      [employeeId, attendanceDate, status]
+      [name, attendanceDate, status]
     );
     return result;
   };

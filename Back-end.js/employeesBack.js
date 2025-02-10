@@ -52,10 +52,6 @@ app.post('/api/employees', (req, res) => {
     });
 });
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
 
 //4. Frontend Integration (HTML + JS):
 //Now that the backend is set up, we need to integrate the frontend with this API. You will be calling the GET and POST endpoints from your HTML/JS code.
